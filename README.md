@@ -13,6 +13,11 @@ use from android devices.
 * browserify
 * shared server for data (?)
 
+## Getting started
+
+* `npm install`
+* `npm run start`
+
 ## Model
 
 * Chore
