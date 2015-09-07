@@ -12,6 +12,7 @@ var moment = require('moment'),
          {when: '2015-08-02', who: 'Ryan'}
        ]}
     ],
+    nextId = 4,
     OVERDUE = {}
 ;
 
@@ -37,6 +38,7 @@ module.exports = function($q, $log) {
   self.fetch = fetch;
   self.addActivity = addActivity;
   self.hasActivity = hasActivity;
+  self.add = add;
 
   function fetch(id) {
     if(id) {
@@ -59,5 +61,11 @@ module.exports = function($q, $log) {
     return _.some(chore.activities, function(activity) {
       return d.isSame(activity.when, 'day');
     });
+  }
+
+  function add(chore) {
+    var saved = _.extend({id: nextId++, activities:[]}, chore);
+    chores.push(saved);
+    return $q.when(saved);
   }
 };
