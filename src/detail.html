@@ -1,3 +1,55 @@
 <div>
-  [DETAILS]
+  <h2>{{ vm.chore.name }}</h2>
+  <h3>Add Activity</h3>
+  <div class="row" collapse="vm.showCalendar">
+    <div class="col-xs-6 col-sm-4">
+      <button class="btn btn-block btn-primary" ng-disabled="vm.disabled"
+              ng-click="vm.doneToday()"
+              >Today</button>
+    </div>
+    <div class="col-xs-6 col-sm-4">
+      <button class="btn btn-block btn-info" ng-disabled="vm.disabled"
+              ng-click="vm.doneYesterday()">Yesterday</button>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <br class="visible-xs-block"/>
+      <button class="btn btn-block" ng-disabled="vm.disabled"
+              ng-click="vm.showCalendar = true">
+        <span class="glyphicon glyphicon-calendar"></span> Other date</button>
+    </div>
+  </div>
+  <div collapse="!vm.showCalendar">
+    <div class="row">
+      <div datepicker ng-model="vm.dt" max-date="vm.today"
+           show-weeks="true" class="col-xs-12"
+           date-disabled="vm.getDisabled(date)">
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-xs-6 col-sm-4" ng-if="vm.dt">
+        <button class="btn btn-block btn-primary" ng-disabled="vm.disabled"
+                ng-click="vm.doneOn(vm.dt)"
+                >{{ vm.dt | date }}</button>
+      </div>
+      <div class="col-xs-6 col-sm-4">
+        <a ng-click="vm.showCalendar = false">Cancel</a>
+      </div>
+    </div>
+  </div>
+  <h3>History</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Who</th>
+        <th>When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="activity in vm.chore.activities">
+        <td>{{ activity.who }}</td>
+        <td>{{ activity.when | date }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

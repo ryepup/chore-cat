@@ -8,11 +8,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="row in vm.choreList">
-      <td>{{row.name}}</td>
-      <td>{{ row.next | fromNow }}</td>
+    <tr ng-repeat="row in vm.choreList"
+        ng-class="{'bg-warning': row.isOverdue}">
+      <td><a ui-sref="choreCat.detail({ id: row.id })">{{row.name}}</a></td>
+      <td ng-if="!row.isOverdue">{{ row.next | fromNow }}</td>
+      <td ng-if="row.isOverdue"><span class="glyphicon glyphicon-warning-sign"></span> NOW!</td>
       <td>{{row.frequency}}</td>
-      <td ng-if="row.last">{{ row.last | fromNow }} by {{ row.who }}</td>
+      <td ng-if="row.last">{{ row.last.when | fromNow }} by {{ row.last.who }}</td>
       <td ng-if="!row.last">-</td>
     </tr>
   </tbody>

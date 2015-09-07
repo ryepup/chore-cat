@@ -24,7 +24,10 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       url: '/chores/:id',
       template: require('./detail.html'),
       controller: require('./detail.controller.js'),
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {
+        chore: function(chores, $stateParams) { return chores.fetch($stateParams.id); }
+      }
     })
   ;
 
