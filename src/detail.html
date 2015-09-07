@@ -38,11 +38,11 @@
     </div>
   </div>
   <h3>History</h3>
-  <table class="table">
+  <table class="table" st-table="vm.chore.activities">
     <thead>
       <tr>
-        <th>Who</th>
-        <th>When</th>
+        <th st-sort="who">Who</th>
+        <th st-sort="when" st-sort-default="reverse">When</th>
       </tr>
     </thead>
     <tbody>
