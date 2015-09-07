@@ -4,6 +4,9 @@ var angular = require('angular'),
     ngUiRouter = require('angular-ui-router'),
     ngBootstrap = require('angular-bootstrap');
 
-module.exports = angular
-  .module('chore-cat', ['ui.bootstrap', 'ui.router'])
+angular
+  .module('choreCat', ['ui.router', 'ui.bootstrap'])
+  .config(require('./routes.js'))
+  .directive('choreCat', require('./choreCat.directive.js'))
+
 ;
