@@ -3,13 +3,16 @@ module.exports = function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('choreCat', {
       url: '/choreCat',
-      template: require('./index.html'),
-      controller: require('./index.controller.js'),
-      controllerAs: 'vm'
+      template: require('./index.html')
     })
     .state('choreCat.list', {
       url:'/chores',
-      template: '[TABLE]'
+      template: require('./list.html'),
+      controller: require('./list.controller.js'),
+      controllerAs: 'vm',
+      resolve: {
+        choreList: function(chores) { return chores.fetch(); }
+      }
     })
     .state('choreCat.add', {
       url: '/add',

@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Next</th>
+      <th>Frequency</th>
+      <th>Last</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in vm.choreList">
+      <td>{{row.name}}</td>
+      <td>{{ row.next | fromNow }}</td>
+      <td>{{row.frequency}}</td>
+      <td ng-if="row.last">{{ row.last | fromNow }} by {{ row.who }}</td>
+      <td ng-if="!row.last">-</td>
+    </tr>
+  </tbody>
+</table>

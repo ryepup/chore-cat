@@ -8,5 +8,7 @@ angular
   .module('choreCat', ['ui.router', 'ui.bootstrap'])
   .config(require('./routes.js'))
   .directive('choreCat', require('./choreCat.directive.js'))
+  .service('chores', require('./chores.js'))
+  .filter('fromNow', require('./fromNow.filter.js'))
 
 ;
