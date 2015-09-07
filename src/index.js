@@ -5,6 +5,8 @@ var angular = require('angular'),
     ngBootstrap = require('angular-bootstrap'),
     smartTable = require('angular-smart-table');
 
+require('./style.css');
+
 angular
   .module('choreCat', ['ui.router', 'ui.bootstrap', 'smart-table'])
   .config(require('./routes.js'))
