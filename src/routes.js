@@ -3,7 +3,9 @@ module.exports = function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('choreCat', {
       url: '/choreCat',
-      template: require('./index.html')
+      template: require('./index.html'),
+      controller: require('./index.controller.js'),
+      controllerAs: 'vm'
     })
     .state('choreCat.list', {
       url:'/chores',
