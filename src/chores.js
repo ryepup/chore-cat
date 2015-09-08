@@ -1,18 +1,6 @@
 var moment = require('moment'),
     _ = require('lodash'),
-    chores = [
-      {id:1, name: 'vacuum', frequency: 14,
-       activities: [
-         {when: '2015-09-05', who: 'Ryan'}
-       ]
-      },
-      {id:2, name: 'litterbox', frequency: 4, activities: [] },
-      {id:3, name: 'dishes', frequency: 4,
-       activities: [
-         {when: '2015-08-02', who: 'Ryan'}
-       ]}
-    ],
-    nextId = 4,
+    chores = [],
     OVERDUE = {}
 ;
 
@@ -33,7 +21,7 @@ function initialize(chore) {
   return chore;
 }
 
-module.exports = function($q, $log) {
+module.exports = function($q, $log, choreDb) {
   var self = this;
   self.fetch = fetch;
   self.addActivity = addActivity;
@@ -42,18 +30,17 @@ module.exports = function($q, $log) {
 
   function fetch(id) {
     if(id) {
-      return $q.when(_(chores).where({id: parseInt(id)}).first());
+      return choreDb.byId(id).then(initialize);
     }
-    return $q.when(chores.map(initialize));
+    return choreDb.all().then(function(chores) {
+      return chores.map(initialize);
+    });
   }
 
   function addActivity(chore, who, when) {
-    chore.activities.push({
-      who: who,
-      when: moment(when).toISOString()
-    });
-    initialize(chore);
-    return $q.when(chore);
+    return choreDb
+      .addActivity(chore.id, {who: who, when: when})
+      .then(initialize);
   }
 
   function hasActivity(chore, when) {
@@ -64,8 +51,7 @@ module.exports = function($q, $log) {
   }
 
   function add(chore) {
-    var saved = _.extend({id: nextId++, activities:[]}, chore);
-    chores.push(saved);
-    return $q.when(saved);
+    return choreDb.addChore(chore)
+      .then(initialize);
   }
 };
