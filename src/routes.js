@@ -31,6 +31,12 @@ module.exports = function($stateProvider, $urlRouterProvider) {
         chore: function(chores, $stateParams) { return chores.fetch($stateParams.id); }
       }
     })
+    .state('choreCat.settings', {
+      url: '/settings',
+      template: require('./settings.html'),
+      controller: require('./settings.controller.js'),
+      controllerAs: 'vm'
+    })
   ;
 
 

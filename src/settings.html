@@ -1,0 +1,14 @@
+<div>
+  <h2>Settings</h2>
+  <form novalidate name="form">
+    <div class="form-group"
+         ng-class="{'has-error': !form.username.$valid, 'has-success': form.username.$valid}">
+      <label class="control-label">Username</label>
+      <input type="text" class="form-control" required
+             name="username"
+             ng-model="vm.settings.username"/>
+      <span class="help-block">Honor system!</span>
+    </div>
+    <button class="btn btn-primary" ng-click="vm.save()">Save</button>
+  </form>
+</div>
