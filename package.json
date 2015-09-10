@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server build",
+    "build": "browserify $npm_package_main -o build/bundle.min.js",
     "watch": "watchify $npm_package_main -d -o build/bundle.js",
     "start": "parallelshell 'npm run watch -s' 'npm run serve -s'"
   },
