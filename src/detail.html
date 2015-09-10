@@ -43,12 +43,18 @@
       <tr>
         <th st-sort="who">Who</th>
         <th st-sort="when" st-sort-default="reverse">When</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="activity in vm.chore.activities">
         <td>{{ activity.who }}</td>
         <td>{{ activity.when | date }}</td>
+        <td>
+          <button class="btn btn-danger" ng-click="vm.remove(activity)">
+            <span class="glyphicon glyphicon-trash">
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

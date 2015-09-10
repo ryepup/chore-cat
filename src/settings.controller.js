@@ -1,10 +1,17 @@
-module.exports = function(choreDb) {
+module.exports = function(firebaseChoreDb, settings, $log) {
   var vm = this;
 
   vm.save = save;
-  vm.settings = choreDb.settings;
+  vm.settings = settings.load();
+  vm.connection = firebaseChoreDb.connection;
+  checkFirebase();
 
   function save() {
-    choreDb.persist();
+    settings.save(vm.settings)
+      .then(checkFirebase);
+  }
+
+  function checkFirebase() {
+    firebaseChoreDb.connect(vm.settings.firebase);
   }
 };

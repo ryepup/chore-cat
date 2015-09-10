@@ -9,6 +9,37 @@
              ng-model="vm.settings.username"/>
       <span class="help-block">Honor system!</span>
     </div>
+    <div class="form-group"
+         ng-class="{'has-error': !form.firebase.$valid, 'has-success': form.firebase.$valid}">
+      <label class="control-label">Firebase URL</label>
+      <div class="input-group">
+        <span class="input-group-addon">https://</span>
+        <input type="text" class="form-control" required
+               name="firebase"
+               placeholder="<YOUR-FIREBASE-APP>"
+               ng-model="vm.settings.firebase"/>
+        <span class="input-group-addon">.firebaseio.com</span>
+      </div>
+      <span class="help-block">Create a free <a href="https://firebase.com">firebase</a> database to store your chores, and paste the URL in here.</span>
+      <span class="help-block" ng-if="vm.connection.isConnected">CONNECTED</span>
+    </div>
+
+    <div class="form-group" collapse="!vm.connection.isConnected">
+      <label class="control-label">Storage</label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="storage" ng-model="vm.settings.useFirebase" ng-value="true">
+          Use firebase to save data - requires an internet connection,
+          and allows sharing with other people.
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="storage" ng-model="vm.settings.useFirebase" ng-value="false">
+          Keep my data on this device only
+        </label>
+      </div>
+    </div>
     <button class="btn btn-primary" ng-click="vm.save()">Save</button>
   </form>
 </div>

@@ -3,7 +3,6 @@ var angular = require('angular'),
     moment = require('moment'),
     defaultDb = {
       chores: [],
-      settings: {},
       version: 1
     },
     key = 'CHORES'
@@ -20,8 +19,15 @@ module.exports = function($window, $timeout, $q) {
   self.addChore = addChore;
   self.addActivity = addActivity;
   self.byId = byId;
-  self.settings = db.settings;
-  self.persist = persist;
+  self.removeActivity = removeActivity;
+
+  function removeActivity(id, activity) {
+    return byId(id)
+      .then(function(chore) {
+        chore.activities = _.reject(chore.activities, {id: activity.id});
+        return persist();
+      });
+  }
 
   function all() {
     return $q.when(db.chores);
@@ -35,13 +41,10 @@ module.exports = function($window, $timeout, $q) {
   }
 
   function addActivity(id, activity) {
-    var act = {
-      who: self.settings.username,
-      when: moment(activity.when).toISOString()
-    };
     return byId(id)
       .then(function(chore) {
-        chore.activities.push(act);
+        activity = nextId++;
+        chore.activities.push(activity);
         return persist().then(function() {
           return chore;
         });

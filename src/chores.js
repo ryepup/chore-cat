@@ -21,27 +21,45 @@ function initialize(chore) {
   return chore;
 }
 
-module.exports = function($q, $log, choreDb) {
+module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
   var self = this;
   self.fetch = fetch;
   self.addActivity = addActivity;
+  self.removeActivity = removeActivity;
   self.hasActivity = hasActivity;
   self.add = add;
 
+  function db() {
+    return settings.load().useFirebase ? firebaseChoreDb : choreDb;
+  }
+
   function fetch(id) {
     if(id) {
-      return choreDb.byId(id).then(initialize);
+      return db().byId(id).then(initialize);
     }
-    return choreDb.all().then(function(chores) {
+    return db().all().then(function(chores) {
       return chores.map(initialize);
     });
   }
 
   function addActivity(chore, who, when) {
-    return choreDb
-      .addActivity(chore.id, {who: who, when: when})
+    return db()
+      .addActivity(chore.id, {
+        who: who,
+        when: moment(when).toISOString()
+      })
       .then(initialize);
   }
+
+  function removeActivity(chore, activity) {
+    return db()
+      .removeActivity(chore.id, activity)
+      .then(function() {
+        // update our local data
+        _.pull(chore.activities, activity);
+      });;
+  }
+
 
   function hasActivity(chore, when) {
     var d = moment(when);
@@ -51,7 +69,7 @@ module.exports = function($q, $log, choreDb) {
   }
 
   function add(chore) {
-    return choreDb.addChore(chore)
+    return db().addChore(chore)
       .then(initialize);
   }
 };

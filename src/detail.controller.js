@@ -1,5 +1,6 @@
 var moment = require('moment'),
-    angular = require('angular')
+    angular = require('angular'),
+    _ = require('lodash')
 ;
 
 module.exports = function(chore, $log, chores, $state) {
@@ -11,7 +12,8 @@ module.exports = function(chore, $log, chores, $state) {
   vm.doneOn = choreDone;
   vm.disabled = false;
   vm.showCalendar = false;
-  vm.getDisabled = function(date) { return chores.hasActivity(chore, date); };
+  vm.getDisabled = chores.hasActivity.bind(null, chore);
+  vm.remove = remove;
 
   function choreDone(daysAgoOrDate) {
     if(angular.isNumber(daysAgoOrDate)){
@@ -23,4 +25,10 @@ module.exports = function(chore, $log, chores, $state) {
       $state.go('choreCat.list');
     });
   };
+
+  function remove(activity) {
+    activity.pending = true;
+
+    chores.removeActivity(chore, activity);
+  }
 };
