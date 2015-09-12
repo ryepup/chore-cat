@@ -55,7 +55,7 @@ module.exports = function($q, $log) {
       .then(byId.bind(null, choreId));
   }
 
-  function connect(appName) {
+  function connect(appName, token) {
     var url = firebaseUrl(appName);
     if(db){
       if(db.toString() == url){
@@ -73,6 +73,16 @@ module.exports = function($q, $log) {
         $log.debug('connection status changed:', isConnected);
         self.connection.isConnected = isConnected === true;
       });
+
+    if(token){
+      db.authWithCustomToken(token, function(error, authData) {
+        if (error) {
+          $log.error("Login Failed!", error);
+        } else {
+          $log.debug("Login Succeeded!", authData);
+        }
+      });
+    }
   }
 
   function get(path) {

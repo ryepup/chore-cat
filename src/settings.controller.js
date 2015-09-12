@@ -12,6 +12,6 @@ module.exports = function(firebaseChoreDb, settings, $log) {
   }
 
   function checkFirebase() {
-    firebaseChoreDb.connect(vm.settings.firebase);
+    firebaseChoreDb.connect(vm.settings.firebase, vm.settings.firebaseToken);
   }
 };

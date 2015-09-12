@@ -19,7 +19,7 @@ angular
   .run(function(settings, firebaseChoreDb) {
     var config = settings.load();
     if(config.useFirebase){
-      firebaseChoreDb.connect(config.firebase);
+      firebaseChoreDb.connect(config.firebase, config.firebaseToken);
     }
   })
 ;

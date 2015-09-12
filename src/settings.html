@@ -23,6 +23,14 @@
       <span class="help-block">Create a free <a href="https://firebase.com">firebase</a> database to store your chores, and paste the URL in here.</span>
       <span class="help-block" ng-if="vm.connection.isConnected">CONNECTED</span>
     </div>
+    <div class="form-group">
+      <label class="control-label">Firebase Token</label>
+      <input type="text" class="form-control"
+             name="firebaseToken"
+             placeholder="Firebase secret or JWT token"
+             ng-model="vm.settings.firebaseToken"/>
+      <span class="help-block">Enter a token or firebase secret to allow authenticated connections to firebase.</span>
+    </div>
 
     <div class="form-group" collapse="!vm.connection.isConnected">
       <label class="control-label">Storage</label>
