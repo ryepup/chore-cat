@@ -21,8 +21,14 @@ module.exports = function($q, $log) {
   self.addActivity = addActivity;
   self.byId = byId;
   self.removeActivity = removeActivity;
+  self.saveChore = saveChore;
 
   var db;
+
+  function saveChore(chore) {
+    var path = chorePath(chore.id);
+    return update(path, _.pick(chore, 'frequency'));
+  }
 
   function removeActivity(id, activity) {
     return set(activityPath(id, activity.id), null);
@@ -105,6 +111,16 @@ module.exports = function($q, $log) {
     $log.debug('set', path, value);
     return $q(function(resolve, reject) {
       db.child(path).set(value, function(err) {
+        if(err) reject(err);
+        resolve();
+      });
+    });
+  }
+
+  function update(path, value) {
+    $log.debug('update', path, value);
+    return $q(function(resolve, reject) {
+      db.child(path).update(value, function(err) {
         if(err) reject(err);
         resolve();
       });

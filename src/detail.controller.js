@@ -14,6 +14,7 @@ module.exports = function(chore, $log, chores, $state) {
   vm.showCalendar = false;
   vm.getDisabled = chores.hasActivity.bind(null, chore);
   vm.remove = remove;
+  vm.save = chores.save.bind(null, chore);
 
   function choreDone(daysAgoOrDate) {
     if(angular.isNumber(daysAgoOrDate)){
@@ -31,4 +32,5 @@ module.exports = function(chore, $log, chores, $state) {
 
     chores.removeActivity(chore, activity);
   }
+
 };

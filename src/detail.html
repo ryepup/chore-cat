@@ -58,4 +58,27 @@
       </tr>
     </tbody>
   </table>
+  <h3>Edit</h3>
+  <form novalidate name="form">
+    <div class="form-group">
+      <label class="control-label">Frequency</label>
+
+      <div class="input-group"
+           ng-class="{'has-error': !form.frequency.$valid, 'has-success': form.frequency.$valid}">
+        <span class="input-group-addon">Every</span>
+        <input type="number" class="form-control" required
+               name="frequency" min="1" max="365"
+               ng-model="vm.chore.frequency"/>
+        <span class="input-group-addon">days</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-md-4 col-lg-2">
+        <button class="btn btn-large btn-primary btn-block"
+                ng-disabled="form.$invalid"
+                ng-click="vm.save()">Save</button>
+      </div>
+    </div>
+  </form>
+
 </div>

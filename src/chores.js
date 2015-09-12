@@ -28,6 +28,7 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
   self.removeActivity = removeActivity;
   self.hasActivity = hasActivity;
   self.add = add;
+  self.save = save;
 
   function db() {
     return settings.load().useFirebase ? firebaseChoreDb : choreDb;
@@ -71,5 +72,9 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
   function add(chore) {
     return db().addChore(chore)
       .then(initialize);
+  }
+
+  function save(chore) {
+    return db().saveChore(chore);
   }
 };

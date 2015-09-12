@@ -20,12 +20,19 @@ module.exports = function($window, $timeout, $q) {
   self.addActivity = addActivity;
   self.byId = byId;
   self.removeActivity = removeActivity;
+  self.saveChore = saveChore;
+
+  function saveChore(chore) {
+    return persist().then(function() {
+      return chore;
+    });
+  }
 
   function removeActivity(id, activity) {
     return byId(id)
       .then(function(chore) {
         chore.activities = _.reject(chore.activities, {id: activity.id});
-        return persist();
+        return saveChore(chore);
       });
   }
 
@@ -35,9 +42,7 @@ module.exports = function($window, $timeout, $q) {
 
   function addChore(chore) {
     db.chores.unshift(_.extend({id: nextId++, activities:[]}, chore));
-    return persist().then(function() {
-      return db.chores[0];
-    });
+    return saveChore(db.chores[0]);
   }
 
   function addActivity(id, activity) {
@@ -45,9 +50,7 @@ module.exports = function($window, $timeout, $q) {
       .then(function(chore) {
         activity = nextId++;
         chore.activities.push(activity);
-        return persist().then(function() {
-          return chore;
-        });
+        return saveChore(chore);
       });
   }
 
