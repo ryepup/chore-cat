@@ -1,5 +1,9 @@
 var angular = require('angular'),
-    key = 'chore-cat.settings'
+    key = 'chore-cat.settings',
+    defaultSettings = {
+      useFirebase: false,
+      firebase: {}
+    }
 ;
 
 module.exports = function($window, $timeout) {
@@ -11,7 +15,7 @@ module.exports = function($window, $timeout) {
 
 
   function load() {
-    return angular.fromJson(localStorage.getItem(key)) || {};
+    return angular.fromJson(localStorage.getItem(key)) || defaultSettings;
   };
 
   function save(settings) {

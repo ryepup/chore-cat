@@ -3,12 +3,16 @@
 var angular = require('angular'),
     ngUiRouter = require('angular-ui-router'),
     ngBootstrap = require('angular-bootstrap'),
-    smartTable = require('angular-smart-table');
+    smartTable = require('angular-smart-table'),
+    angularQrCode = require('angular-qrcode')
+;
+window.qrcode = require('qrcode-generator');
 
 require('./style.css');
 
 angular
-  .module('choreCat', ['ui.router', 'ui.bootstrap', 'smart-table'])
+  .module('choreCat', ['ui.router', 'ui.bootstrap', 'smart-table',
+                       'monospaced.qrcode'])
   .config(require('./routes.js'))
   .directive('choreCat', require('./choreCat.directive.js'))
   .service('choreDb', require('./choreDb.service.js'))
@@ -19,7 +23,7 @@ angular
   .run(function(settings, firebaseChoreDb) {
     var config = settings.load();
     if(config.useFirebase){
-      firebaseChoreDb.connect(config.firebase, config.firebaseToken);
+      firebaseChoreDb.connect(config.firebase);
     }
   })
 ;

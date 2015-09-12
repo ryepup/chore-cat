@@ -1,3 +1,5 @@
+var angular = require('angular')
+;
 module.exports = function(firebaseChoreDb, settings, $log) {
   var vm = this;
 
@@ -12,6 +14,8 @@ module.exports = function(firebaseChoreDb, settings, $log) {
   }
 
   function checkFirebase() {
-    firebaseChoreDb.connect(vm.settings.firebase, vm.settings.firebaseToken);
+    if(vm.settings.firebase.url){
+      firebaseChoreDb.connect(vm.settings.firebase);
+    }
   }
 };

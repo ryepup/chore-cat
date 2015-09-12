@@ -61,8 +61,8 @@ module.exports = function($q, $log) {
       .then(byId.bind(null, choreId));
   }
 
-  function connect(appName, token) {
-    var url = firebaseUrl(appName);
+  function connect(config) {
+    var url = firebaseUrl(config.url);
     if(db){
       if(db.toString() == url){
         $log.debug('already connected to', url);
@@ -80,8 +80,8 @@ module.exports = function($q, $log) {
         self.connection.isConnected = isConnected === true;
       });
 
-    if(token){
-      db.authWithCustomToken(token, function(error, authData) {
+    if(config.token){
+      db.authWithCustomToken(config.token, function(error, authData) {
         if (error) {
           $log.error("Login Failed!", error);
         } else {
