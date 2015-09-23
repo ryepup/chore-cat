@@ -11,7 +11,7 @@ function activityPath(choreId, id) {
   return chorePath(choreId) + '/activities/' + id;
 }
 
-module.exports = function($q, $log) {
+module.exports = function($q, $log, $timeout) {
   var self = this;
   self.connect = connect;
   self.connection = {isConnected: false};
@@ -35,14 +35,14 @@ module.exports = function($q, $log) {
   }
 
   function all() {
-    return get('chore-cat/chores').then(_.values);
+    return get('chore-cat/chores').then(_.values, logError);
   }
 
   function addChore(chore) {
     var id = uuid.v4();
     chore.id = id;
     return set(chorePath(id), chore)
-      .then(byId.bind(null, id));
+      .then(byId.bind(null, id), logError);
   }
 
   function byId(id) {
@@ -51,14 +51,14 @@ module.exports = function($q, $log) {
       .then(function(chore) {
         chore.activities = _.values(chore.activities) || [];
         return chore;
-      });
+      }, logError);
   }
 
   function addActivity(choreId, activity) {
     var id = uuid.v4();
     activity.id = id;
     return set(activityPath(choreId, id), activity)
-      .then(byId.bind(null, choreId));
+      .then(byId.bind(null, choreId), logError);
   }
 
   function connect(config) {
@@ -69,7 +69,7 @@ module.exports = function($q, $log) {
         return;
       }
       db.off();
-      db.goOffline();
+//      db.goOffline();
     }
     $log.debug('connecting to', url);
 
@@ -83,25 +83,37 @@ module.exports = function($q, $log) {
     if(config.token){
       db.authWithCustomToken(config.token, function(error, authData) {
         if (error) {
-          $log.error("Login Failed!", error);
+          $log.error("Auth failed!", error);
         } else {
-          $log.debug("Login Succeeded!", authData);
+          $log.debug("Auth succeeded!", authData);
         }
       });
     }
+  }
+
+  function logError(err) {
+    $log.error(err);
+    alert(err);
   }
 
   function get(path) {
     $log.debug('get', path);
     var q = db.child(path);
     return $q(function(resolve, reject) {
-      q.once('value', function(res) { resolve(res.val()); });
+      q.once('value', function(res) {
+        $log.debug('got', res);
+        resolve(res.val());
+      }, function(err) {
+        logError(err); reject(err);
+      });
     });
   }
 
   function watch(path) {
+    $log.debug('watch', path);
     var d = $q.defer();
     db.child(path).on('value', function(snapshot) {
+      $log.debug('watched', snapshot);
       d.notify(snapshot.val());
     });
     return d.promise;

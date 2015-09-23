@@ -1,0 +1,19 @@
+<div>
+  <h2>Logs</h2>
+  <table class="table" st-table="vm.logs">
+    <thead>
+      <tr>
+        <th st-sort="when" st-sort-default="reverse">When</th>
+        <th>Level</th>
+        <th>Message</></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="log in vm.logs">
+        <td>{{ log.when | fromNow }}</td>
+        <td>{{ log.level }}</td>
+        <td>{{ log.message }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

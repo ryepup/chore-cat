@@ -6,6 +6,7 @@ var angular = require('angular'),
     smartTable = require('angular-smart-table'),
     angularQrCode = require('angular-qrcode')
 ;
+// `angular-qrcode` needs this global
 window.qrcode = require('qrcode-generator');
 
 require('./style.css');
@@ -20,8 +21,11 @@ angular
   .service('chores', require('./chores.js'))
   .service('settings', require('./settings.service.js'))
   .filter('fromNow', require('./fromNow.filter.js'))
-  .run(function(settings, firebaseChoreDb) {
-    var config = settings.load();
+  .value('config', {})
+  .value('logs', [])
+  .decorator('$log', require('./log.decorator.js'))
+  .run(function(settings, firebaseChoreDb, config) {
+    angular.extend(config, settings.load());
     if(config.useFirebase){
       firebaseChoreDb.connect(config.firebase);
     }

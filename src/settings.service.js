@@ -2,11 +2,12 @@ var angular = require('angular'),
     key = 'chore-cat.settings',
     defaultSettings = {
       useFirebase: false,
+      logging: false,
       firebase: {}
     }
 ;
 
-module.exports = function($window, $timeout) {
+module.exports = function($window, $timeout, config) {
   var self = this;
   self.load = load;
   self.save = save;
@@ -15,7 +16,8 @@ module.exports = function($window, $timeout) {
 
 
   function load() {
-    return angular.fromJson(localStorage.getItem(key)) || defaultSettings;
+    var cfg = angular.fromJson(localStorage.getItem(key)) || defaultSettings;
+    return angular.extend(config, cfg);
   };
 
   function save(settings) {

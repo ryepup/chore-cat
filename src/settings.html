@@ -32,7 +32,24 @@
       <span class="help-block">Enter a token or firebase secret to allow authenticated connections to firebase.</span>
     </div>
 
-    <div class="form-group" collapse="!vm.connection.isConnected">
+    <div class="form-group">
+      <label class="control-label">Logging</label>
+      <div class="radio">
+        <label>
+          <input type="radio" ng-model="vm.settings.logging" ng-value="true">
+          On
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" ng-model="vm.settings.logging" ng-value="false">
+          Off
+        </label>
+      </div>
+    </div>
+
+
+    <div class="form-group">
       <label class="control-label">Storage</label>
       <div class="radio">
         <label>
@@ -52,7 +69,13 @@
   </form>
   <hr/>
   <div>
-    <h3>Firebase settings</h3>
+    <h3>Share Firebase settings</h3>
+    <div ng-if="vm.allowScan">
+      <button ng-click="vm.scan()" class="btn btn-info">
+        <span class="glyphicon glyphicon-qrcode"></span> Scan
+      </button>
+    </div>
+    <br/>
     <qrcode version="8" data="{{vm.settings.firebase | json }}" size="200"/>
   </div>
 </div>
