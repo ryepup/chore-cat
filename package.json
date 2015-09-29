@@ -15,7 +15,7 @@
     "cats"
   ],
   "author": "Ryan Davis <ryepup@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "browserify": "^11.0.1",
     "cssify": "^0.7.0",
