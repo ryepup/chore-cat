@@ -43,6 +43,12 @@ module.exports = function($stateProvider, $urlRouterProvider) {
       controller: require('./logs.controller.js'),
       controllerAs: 'vm'
     })
+    .state('choreCat.about', {
+      url: '/about',
+      template: require('./about.html'),
+      controller: require('./about.controller.js'),
+      controllerAs: 'vm'
+    })
   ;
 
 
