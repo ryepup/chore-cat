@@ -23,7 +23,7 @@ module.exports = function($window, $timeout, config) {
   function save(settings) {
     return $timeout(function() {
       localStorage.setItem(key, angular.toJson(settings));
-      return settings;
+      return load();
     });
   };
 

@@ -3,7 +3,7 @@ var moment = require('moment'),
     _ = require('lodash')
 ;
 
-module.exports = function(chore, $log, chores, $state) {
+module.exports = function(chore, $log, chores, $state, config) {
   var vm = this;
   vm.chore = chore;
   vm.today = new Date();
@@ -22,7 +22,7 @@ module.exports = function(chore, $log, chores, $state) {
       return;
     }
     vm.disabled = true;
-    chores.addActivity(vm.chore, 'Ryan', daysAgoOrDate).then(function() {
+    chores.addActivity(vm.chore, config.username, daysAgoOrDate).then(function() {
       $state.go('choreCat.list');
     });
   };
