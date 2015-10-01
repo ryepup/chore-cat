@@ -5,3 +5,7 @@
 .st-sort-descent:before{
    content: '\25BC';
 }
+
+canvas.qrcode {
+   margin: 2em;
+}

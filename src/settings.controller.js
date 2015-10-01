@@ -10,13 +10,12 @@ module.exports = function(firebaseChoreDb, settings, $log, $q) {
   vm.connection = firebaseChoreDb.connection;
   vm.allowScan = false;
   vm.scan = scan;
-
   checkFirebase();
   checkForScanner();
 
   function save() {
-    settings.save(vm.settings)
-      .then(checkFirebase);
+    var p = settings.save(vm.settings);
+    if(vm.settings.useFirebase) p.then(checkFirebase);
   }
 
   function checkFirebase() {
