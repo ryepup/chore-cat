@@ -1,6 +1,6 @@
 {
   "name": "chore-cat",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "helper for managing chores around the house",
   "main": "src/index.js",
   "scripts": {
