@@ -9,6 +9,8 @@
              ng-model="vm.settings.username"/>
       <span class="help-block">Honor system!</span>
     </div>
+
+
     <div class="form-group"
          ng-class="{'has-error': !form.firebase.$valid, 'has-success': form.firebase.$valid}">
       <label class="control-label">Firebase URL</label>
@@ -34,20 +36,9 @@
 
     <div class="form-group">
       <label class="control-label">Logging</label>
-      <div class="radio">
-        <label>
-          <input type="radio" ng-model="vm.settings.logging" ng-value="true">
-          On
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" ng-model="vm.settings.logging" ng-value="false">
-          Off
-        </label>
-      </div>
+      <div toggle-switch ng-model="vm.settings.logging"></div>
+      <span class="help-block">For debugging only, saves log messages and allows them to be viewed on the <a ui-sref="choreCat.logs">Logs</a> screen.</span>
     </div>
-
 
     <div class="form-group">
       <label class="control-label">Storage</label>
