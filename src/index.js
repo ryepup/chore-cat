@@ -24,6 +24,7 @@ angular
   .value('config', {})
   .value('logs', [])
   .decorator('$log', require('./log.decorator.js'))
+  .directive('toggleSwitch', require('./toggle-switch.directive.js'))
   .run(startup)
 ;
 
