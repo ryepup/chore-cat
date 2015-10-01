@@ -24,10 +24,13 @@ angular
   .value('config', {})
   .value('logs', [])
   .decorator('$log', require('./log.decorator.js'))
-  .run(function(settings, firebaseChoreDb, config) {
-    angular.extend(config, settings.load());
-    if(config.useFirebase){
-      firebaseChoreDb.connect(config.firebase);
-    }
-  })
+  .run(startup)
 ;
+
+// @ngInject
+function startup(settings, firebaseChoreDb, config) {
+  angular.extend(config, settings.load());
+  if(config.useFirebase){
+    firebaseChoreDb.connect(config.firebase);
+  }
+}

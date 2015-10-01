@@ -7,6 +7,7 @@ var angular = require('angular'),
     }
 ;
 
+// @ngInject
 module.exports = function($window, $timeout, config) {
   var self = this;
   self.load = load;

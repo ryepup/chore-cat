@@ -1,3 +1,4 @@
+// @ngInject
 module.exports = function(chores, $state) {
   var vm = this;
   vm.chore = {};

@@ -1,3 +1,4 @@
+// @ngInject
 module.exports = function($rootScope) {
   var vm = this;
   vm.toggle = function() { vm.navbarCollapsed = !vm.navbarCollapsed; };

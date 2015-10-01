@@ -1,3 +1,4 @@
+// @ngInject
 module.exports = function($delegate, logs, config) {
   var logFns = 'debug warn info error log'.split(' ');
 

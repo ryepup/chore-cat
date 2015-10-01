@@ -1,5 +1,7 @@
 var angular = require('angular')
 ;
+
+// @ngInject
 module.exports = function(firebaseChoreDb, settings, $log, $q) {
   var vm = this;
 

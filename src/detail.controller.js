@@ -3,6 +3,7 @@ var moment = require('moment'),
     _ = require('lodash')
 ;
 
+// @ngInject
 module.exports = function(chore, $log, chores, $state, config) {
   var vm = this;
   vm.chore = chore;

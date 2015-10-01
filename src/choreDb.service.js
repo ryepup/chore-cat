@@ -8,6 +8,7 @@ var angular = require('angular'),
     key = 'CHORES'
 ;
 
+// @ngInject
 module.exports = function($window, $timeout, $q) {
   var self = this,
       localStorage = $window.localStorage,

@@ -11,6 +11,7 @@ function activityPath(choreId, id) {
   return chorePath(choreId) + '/activities/' + id;
 }
 
+// @ngInject
 module.exports = function($q, $log, $timeout) {
   var self = this;
   self.connect = connect;

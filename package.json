@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "live-server build",
-    "build": "browserify $npm_package_main -o build/bundle.min.js",
+    "build": "browserify -g uglifyify $npm_package_main -o build/bundle.min.js",
     "watch": "watchify $npm_package_main -d -o build/bundle.js",
     "start": "parallelshell 'npm run watch -s' 'npm run serve -s'"
   },
@@ -18,11 +18,13 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^11.0.1",
+    "browserify-ngannotate": "^1.0.1",
     "cssify": "^0.7.0",
     "envify": "^3.4.0",
     "live-server": "^0.8.1",
     "parallelshell": "^2.0.0",
     "stringify": "^3.1.0",
+    "uglifyify": "^3.0.1",
     "watchify": "^3.4.0"
   },
   "dependencies": {
@@ -41,7 +43,9 @@
     "transform": [
       "cssify",
       "stringify",
-      "envify"
+      "envify",
+      "browserify-ngannotate",
+      "uglifyify"
     ]
   }
 }

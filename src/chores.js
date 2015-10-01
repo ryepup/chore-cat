@@ -21,6 +21,7 @@ function initialize(chore) {
   return chore;
 }
 
+// @ngInject
 module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
   var self = this;
   self.fetch = fetch;
