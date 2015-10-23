@@ -9,8 +9,10 @@
   </thead>
   <tbody>
     <tr ng-repeat="row in vm.choreList"
-        ng-class="{'bg-warning': row.isOverdue}">
-      <td><a ui-sref="choreCat.detail({ id: row.id })">{{row.name}}</a></td>
+        ng-class="{'bg-warning': row.isOverdue}"
+        ui-sref="choreCat.detail({ id: row.id })"
+        >
+      <td>{{row.name}}</td>
       <td ng-if="!row.isOverdue">{{ row.next | fromNow }}</td>
       <td ng-if="row.isOverdue"><span class="glyphicon glyphicon-warning-sign"></span> NOW!</td>
       <td>every {{row.frequency}} days</td>
