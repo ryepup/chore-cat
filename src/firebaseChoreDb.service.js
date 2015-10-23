@@ -101,12 +101,9 @@ module.exports = function($q, $log, $timeout) {
     $log.debug('get', path);
     var q = db.child(path);
     return $q(function(resolve, reject) {
-      q.once('value', function(res) {
-        $log.debug('got', res);
-        resolve(res.val());
-      }, function(err) {
-        logError(err); reject(err);
-      });
+      q.once('value',
+             res => resolve(res.val()),
+             err => { logError(err); reject(err); });
     });
   }
 
@@ -123,20 +120,14 @@ module.exports = function($q, $log, $timeout) {
   function set(path, value) {
     $log.debug('set', path, value);
     return $q(function(resolve, reject) {
-      db.child(path).set(value, function(err) {
-        if(err) reject(err);
-        resolve();
-      });
+      db.child(path).set(value, err => err ? reject(err) : resolve());
     });
   }
 
   function update(path, value) {
     $log.debug('update', path, value);
     return $q(function(resolve, reject) {
-      db.child(path).update(value, function(err) {
-        if(err) reject(err);
-        resolve();
-      });
+      db.child(path).update(value, err => err ? reject(err) : resolve());
     });
   }
 };

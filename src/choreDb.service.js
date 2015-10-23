@@ -24,9 +24,7 @@ module.exports = function($window, $timeout, $q) {
   self.saveChore = saveChore;
 
   function saveChore(chore) {
-    return persist().then(function() {
-      return chore;
-    });
+    return persist().then(() => chore);
   }
 
   function removeActivity(id, activity) {

@@ -23,9 +23,8 @@ module.exports = function(chore, $log, chores, $state, config) {
       return;
     }
     vm.disabled = true;
-    chores.addActivity(vm.chore, config.username, daysAgoOrDate).then(function() {
-      $state.go('choreCat.list');
-    });
+    chores.addActivity(vm.chore, config.username, daysAgoOrDate)
+      .then(() => $state.go('choreCat.list'));
   };
 
   function remove(activity) {

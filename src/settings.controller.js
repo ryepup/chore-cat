@@ -29,11 +29,10 @@ module.exports = function(firebaseChoreDb, settings, $log, $q) {
   }
 
   function scan() {
-    $q(function(resolve, reject) {
-      window.cordova.plugins.barcodeScanner.scan(resolve, reject);
-    }).then(function(result) {
-      vm.settings.firebase = angular.fromJson(result.text);
-      checkFirebase();
-    });
+    $q(window.cordova.plugins.barcodeScanner.scan)
+      .then(function(result) {
+        vm.settings.firebase = angular.fromJson(result.text);
+        checkFirebase();
+      });
   }
 };

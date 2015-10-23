@@ -11,7 +11,7 @@ function ToggleSwitchController($attrs) {
   var vm = this,
       opts = angular.extend({}, defaults, $attrs);
 
-  vm.set = function(value) { vm.ngModel = value; };
+  vm.set = value => vm.ngModel = value;
   vm.cssClasses = function(value) {
     var active= vm.ngModel === value,
         classes = {active: active};

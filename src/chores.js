@@ -62,12 +62,10 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
       });;
   }
 
-
   function hasActivity(chore, when) {
     var d = moment(when);
-    return _.some(chore.activities, function(activity) {
-      return d.isSame(activity.when, 'day');
-    });
+    return _.some(chore.activities,
+                  item => d.isSame(item.when, 'day'));
   }
 
   function add(chore) {

@@ -1,7 +1,7 @@
 // @ngInject
 module.exports = function($rootScope) {
   var vm = this;
-  vm.toggle = function() { vm.navbarCollapsed = !vm.navbarCollapsed; };
+  vm.toggle = () => vm.navbarCollapsed = !vm.navbarCollapsed;
 
   close();
   $rootScope.$on('$stateChangeStart', close);
