@@ -28,7 +28,7 @@ module.exports = function($q, $log, $timeout) {
 
   function saveChore(chore) {
     var path = chorePath(chore.id);
-    return update(path, _.pick(chore, 'frequency'));
+    return update(path, _.pick(chore, ['frequency', 'name']));
   }
 
   function removeActivity(id, activity) {
