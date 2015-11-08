@@ -1,25 +1,8 @@
 var moment = require('moment'),
     _ = require('lodash'),
     chores = [],
-    OVERDUE = {}
+    Chore = require('./Chore.js')
 ;
-
-function nextDue(chore) {
-  if(!chore.last) return OVERDUE;
-
-  var now = moment(),
-      next = moment(chore.last.when).add(chore.frequency, 'days')
-  ;
-  return now.isAfter(next) ? OVERDUE : next;
-}
-
-function initialize(chore) {
-  chore.activities = _.sortByOrder(chore.activities, ['when'], ['desc']);
-  chore.last = _.first(chore.activities);
-  chore.next = nextDue(chore);
-  chore.isOverdue = chore.next === OVERDUE;
-  return chore;
-}
 
 // @ngInject
 module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
@@ -37,11 +20,11 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
 
   function fetch(id) {
     if(id) {
-      return db().byId(id).then(initialize);
+      return db().byId(id)
+        .then(Chore.create);
     }
-    return db().all().then(function(chores) {
-      return chores.map(initialize);
-    });
+    return db().all()
+      .then(chores => chores.map(Chore.create));
   }
 
   function addActivity(chore, who, when) {
@@ -50,7 +33,7 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
         who: who,
         when: moment(when).toISOString()
       })
-      .then(initialize);
+      .then(Chore.create);
   }
 
   function removeActivity(chore, activity) {
@@ -70,7 +53,7 @@ module.exports = function($q, $log, choreDb, firebaseChoreDb, settings) {
 
   function add(chore) {
     return db().addChore(chore)
-      .then(initialize);
+      .then(Chore.create);
   }
 
   function save(chore) {
