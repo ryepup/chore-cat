@@ -3,6 +3,8 @@
 Helper for managing and tracking chores around the house. Intended for
 use from phones, tablets, and desktops.
 
+[![Build Status](https://travis-ci.org/ryepup/chore-cat.svg?branch=master)](https://travis-ci.org/ryepup/chore-cat)
+
 ## Multiplayer setup
 
 `chore-cat` has no central server, but you can setup a firebase.com
