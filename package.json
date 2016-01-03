@@ -7,7 +7,7 @@
     "test": "karma start karma.conf.js --single-run",
     "test:watch": "karma start karma.conf.js",
     "serve": "live-server build",
-    "build": "browserify -g uglifyify $npm_package_main -o build/bundle.min.js",
+    "build": "browserify -g uglifyify $npm_package_main -o build/bundle.js",
     "watch": "watchify $npm_package_main -d -o build/bundle.js",
     "start": "parallelshell 'npm run watch -s' 'npm run serve -s' 'npm run test:watch'"
   },
