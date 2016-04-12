@@ -15,7 +15,9 @@ angular
   .module('choreCat', ['ui.router', 'ui.bootstrap', 'smart-table',
                        'monospaced.qrcode'])
   .config(require('./routes.js'))
-  .directive('choreCat', require('./choreCat.directive.js'))
+  .component('choreCat', {
+    template: '<div ui-view>Loading...</div>'
+  })
   .service('choreDb', require('./choreDb.service.js'))
   .service('firebaseChoreDb', require('./firebaseChoreDb.service.js'))
   .service('chores', require('./chores.js'))
@@ -24,7 +26,6 @@ angular
   .value('config', {})
   .value('logs', [])
   .decorator('$log', require('./log.decorator.js'))
-  .directive('toggleSwitch', require('./toggle-switch.directive.js'))
   .run(startup)
 ;
 
